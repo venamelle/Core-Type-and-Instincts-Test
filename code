@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Enneagram Core + Instinct Quiz</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background: #0f0f0f;
+      color: #f2f2f2;
+      max-width: 850px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    h1, h2 {
+      color: #d8b4fe;
+    }
+
+    .question {
+      margin-bottom: 35px;
+      padding: 20px;
+      border: 1px solid #333;
+      border-radius: 12px;
+      background: #181818;
+    }
+
+    label {
+      display: block;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+
+    textarea {
+      width: 100%;
+      height: 90px;
+      background: #111;
+      color: #fff;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    button {
+      background: #7c3aed;
+      color: white;
+      border: none;
+      padding: 14px 22px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #6d28d9;
+    }
+
+    #results {
+      margin-top: 40px;
+      padding: 25px;
+      border: 1px solid #555;
+      border-radius: 12px;
+      background: #181818;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Enneagram Core Type + Instinct Quiz</h1>
+
+<form id="quizForm"></form>
+
+<button onclick="calculateResults()">Get Results</button>
+
+<div id="results"></div>
+
+<script>
+const questions = [
+  {
+    text: "1. What feels most intolerable?",
+    answers: {
+      A: ["1"], B: ["3"], C: ["8"], D: ["2"], E: ["7"], F: ["5"], G: ["7"], H: ["4"], I: ["5"]
+    }
+  },
+  {
+    text: "2. When someone disappoints you repeatedly, what do you secretly want most?",
+    answers: {
+      A: ["1"], B: ["5"], C: ["8"], D: ["3"], E: ["4"], F: ["2"], G: ["5"], H: ["9"], I: ["8"]
+    }
+  },
+  {
+    text: "3. Which statement feels closest to your psychology?",
+    answers: {
+      A: ["8"], B: ["1"], C: ["4"], D: ["5"], E: ["2"], F: ["6"], G: ["3"], H: ["7"], I: ["8"]
+    }
+  },
+  {
+    text: "4. What hurts more?",
+    answers: {
+      A: ["3"], B: ["2"], C: ["6"], D: ["4"], E: ["6"], F: ["7"], G: ["4"], H: ["3"], I: ["8"]
+    }
+  },
+  {
+    text: "5. Do you fear becoming:",
+    answers: {
+      A: ["8"], B: ["4"], C: ["1"], D: ["5"], E: ["1"], F: ["2"], G: ["7"], H: ["8"], I: ["3"]
+    }
+  },
+  {
+    text: "6. Which desire feels most ancient in you?",
+    answers: {
+      A: ["4"], B: ["8"], C: ["9"], D: ["5"], E: ["2"], F: ["7"], G: ["1"], H: ["3"], I: ["4", "sx"]
+    }
+  },
+  {
+    text: "7. Which statement sounds most true?",
+    answers: {
+      A: ["1"], B: ["6"], C: ["8"], D: ["7"], E: ["4"], F: ["5"], G: ["9"], H: ["3"], I: ["4", "sx"]
+    }
+  },
+  {
+    text: "8. When someone withdraws affection, what happens internally first?",
+    answers: {
+      A: ["6"], B: ["8"], C: ["5"], D: ["sx"], E: ["4"], F: ["5"], G: ["2"], H: ["8"], I: ["2", "sx"]
+    }
+  },
+  {
+    text: "9. Which dynamic secretly appeals to you most?",
+    answers: {
+      A: ["2"], B: ["sx"], C: ["3"], D: ["9"], E: ["5"], F: ["sx"], G: ["5"], H: ["8"], I: ["5", "9"]
+    }
+  },
+  {
+    text: "12. Which relationship style feels most natural?",
+    answers: {
+      A: ["9"], B: ["4", "sx"], C: ["1"], D: ["3", "5"]
+    }
+  },
+  {
+    text: "13. Which do you secretly want most?",
+    answers: {
+      A: ["2"], B: ["5"], C: ["2"], D: ["8"], E: ["3"], F: ["sx"], G: ["1"], H: ["4"], I: ["5", "4"]
+    }
+  },
+  {
+    text: "17. Which causes the most shame?",
+    answers: {
+      A: ["5"], B: ["5"], C: ["3"], D: ["8"], E: ["3"], F: ["1"], G: ["5"], H: ["4"], I: ["4"]
+    }
+  },
+  {
+    text: "19. Which would you rather be?",
+    answers: {
+      A: ["4", "5"], B: ["2", "9"]
+    }
+  },
+  {
+    text: "20. When stressed, what becomes obsessive?",
+    answers: {
+      A: ["1", "8"], B: ["3"], C: ["6"], D: ["7"], E: ["7"], F: ["5"], G: ["3"], H: ["2"], I: ["4", "sx"]
+    }
+  },
+  {
+    text: "21. Which defense mechanism sounds most like you?",
+    answers: {
+      A: ["1"], B: ["3"], C: ["5"], D: ["9"], E: ["6"], F: ["5"], G: ["1"], H: ["9"], I: ["4", "sx"]
+    }
+  },
+  {
+    text: "24. What matters most naturally?",
+    answers: {
+      A: ["sp"], B: ["sx"], C: ["so"]
+    }
+  },
+  {
+    text: "25. What do you obsess over most?",
+    answers: {
+      A: ["sp"], B: ["sx"], C: ["so"]
+    }
+  },
+  {
+    text: "26. What kind of neglect affects you most?",
+    answers: {
+      A: ["sp"], B: ["sx"], C: ["so"]
+    }
+  },
+  {
+    text: "28. Do you naturally scan for:",
+    answers: {
+      A: ["sp"], B: ["sx"], C: ["so"]
+    }
+  },
+  {
+    text: "29. Which statement feels most true?",
+    answers: {
+      A: ["sp"], B: ["sx"], C: ["so"]
+    }
+  },
+  {
+    text: "30. If everything collapsed tomorrow, what would you protect first?",
+    answers: {
+      A: ["sp"], B: ["sp"], C: ["4"], D: ["7"], E: ["so"], F: ["5"], G: ["4"], H: ["8"], I: ["sx"]
+    }
+  }
+];
+
+const freeResponseQuestions = [
+  "10. What kind of betrayal feels unforgivable?",
+  "11. Do you fear abandonment more than engulfment, or engulfment more than abandonment?",
+  "14. How do you react when someone sees through you accurately?",
+  "15. What would emotionally destroy your self-image?",
+  "16. What are you trying to prove, and to whom?",
+  "18. What separates you from ordinary people?",
+  "22. Do you believe vulnerability creates intimacy or danger?",
+  "23. What emotion do you avoid expressing most?",
+  "27. What gives you the strongest sense of aliveness?"
+];
+
+function renderQuiz() {
+  const form = document.getElementById("quizForm");
+
+  questions.forEach((q, index) => {
+    const div = document.createElement("div");
+    div.className = "question";
+
+    let html = `<h2>${q.text}</h2>`;
+
+    for (const [letter, scores] of Object.entries(q.answers)) {
+      html += `
+        <label>
+          <input type="radio" name="q${index}" value="${letter}">
+          ${letter}
+        </label>
+      `;
+    }
+
+    div.innerHTML = html;
+    form.appendChild(div);
+  });
+
+  freeResponseQuestions.forEach((text, index) => {
+    const div = document.createElement("div");
+    div.className = "question";
+    div.innerHTML = `
+      <h2>${text}</h2>
+      <textarea name="free${index}" placeholder="Write your answer here..."></textarea>
+    `;
+    form.appendChild(div);
+  });
+}
+
+function calculateResults() {
+  const typeScores = {
+    1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0
+  };
+
+  const instinctScores = {
+    sp: 0,
+    sx: 0,
+    so: 0
+  };
+
+  questions.forEach((q, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+
+    if (selected) {
+      const scores = q.answers[selected.value];
+
+      scores.forEach(score => {
+        if (typeScores.hasOwnProperty(score)) {
+          typeScores[score]++;
+        }
+
+        if (instinctScores.hasOwnProperty(score)) {
+          instinctScores[score]++;
+        }
+      });
+    }
+  });
+
+  const coreType = Object.keys(typeScores).reduce((a, b) =>
+    typeScores[a] > typeScores[b] ? a : b
+  );
+
+  const dominantInstinct = Object.keys(instinctScores).reduce((a, b) =>
+    instinctScores[a] > instinctScores[b] ? a : b
+  );
+
+  const instinctNames = {
+    sp: "Self-Preservation",
+    sx: "Sexual / One-to-One",
+    so: "Social"
+  };
+
+  const typeDescriptions = {
+    1: "Type 1: The Reformer. Motivated by integrity, self-control, refinement, and moral correctness.",
+    2: "Type 2: The Giver. Motivated by love, attachment, emotional indispensability, and being needed.",
+    3: "Type 3: The Achiever. Motivated by success, admiration, excellence, and avoiding failure.",
+    4: "Type 4: The Individualist. Motivated by identity, depth, uniqueness, longing, and emotional truth.",
+    5: "Type 5: The Investigator. Motivated by competence, privacy, mastery, and self-sufficiency.",
+    6: "Type 6: The Loyalist. Motivated by security, certainty, loyalty, and preparation against threat.",
+    7: "Type 7: The Enthusiast. Motivated by freedom, possibility, stimulation, and avoidance of limitation.",
+    8: "Type 8: The Challenger. Motivated by power, autonomy, strength, and resistance to control.",
+    9: "Type 9: The Peacemaker. Motivated by inner peace, stability, harmony, and avoidance of conflict."
+  };
+
+  const resultsDiv = document.getElementById("results");
+
+  resultsDiv.style.display = "block";
+  resultsDiv.innerHTML = `
+    <h2>Your Results</h2>
+
+    <h3>Core Type: ${coreType}</h3>
+    <p>${typeDescriptions[coreType]}</p>
+
+    <h3>Dominant Instinct: ${instinctNames[dominantInstinct]}</h3>
+
+    <h3>Core Type Scores</h3>
+    <pre>${JSON.stringify(typeScores, null, 2)}</pre>
+
+    <h3>Instinct Scores</h3>
+    <pre>${JSON.stringify(instinctScores, null, 2)}</pre>
+  `;
+}
+
+renderQuiz();
+</script>
+
+</body>
+</html>
