@@ -64,12 +64,36 @@ const questions=[
 {text:"22. Do you believe vulnerability creates intimacy or danger?",options:{A:{text:"Intimacy",type:{2:3,4:1}},B:{text:"Danger",type:{5:3,8:2,6:1}},C:{text:"Both",type:{4:2,6:3}},D:{text:"Neither, it depends on utility.",type:{3:2,5:3}}}},
 {text:"23. What emotion do you avoid expressing most?",options:{A:{text:"Anger",type:{9:5,1:1}},B:{text:"Need",type:{5:4}},C:{text:"Fear",type:{8:4}},D:{text:"Shame",type:{3:4}},E:{text:"Envy",type:{4:4}},F:{text:"Tenderness",type:{8:3,1:1}}}},
 
-{slider:true,text:"24. When entering a completely unfamiliar environment, rate how much each statement fits.",sliders:{sp:"I notice escape routes, physical comfort, or potential hazards.",sx:"I notice who immediately draws me in or repels me.",so:"I notice social dynamics, status, and how people relate to one another."}},
-{slider:true,text:"25. Rate how strongly each possible loss would disturb you.",sliders:{sp:"Losing financial or physical stability.",sx:"Losing the one relationship or fixation that makes life feel vivid.",so:"Losing my place within a community, network, or group."}},
-{slider:true,text:"26. If you suddenly had unlimited money tomorrow, rate how likely each response is.",sliders:{sp:"I would secure my future, improve my living conditions, and eliminate practical concerns.",sx:"I would pursue experiences, relationships, or passions that feel consuming or transformative.",so:"I would build influence, contribute to something larger, or establish a meaningful role."}},
-{slider:true,text:"27. Rate how strongly each quality makes someone immediately interesting to you.",sliders:{sp:"They seem capable, grounded, and self-sufficient.",sx:"They possess unusual intensity, magnetism, or psychological charge.",so:"They have influence, charisma, or social gravity."}},
-{slider:true,text:"28. When life is going well, rate how naturally your energy flows toward each area.",sliders:{sp:"Improving my quality of life and long-term stability.",sx:"Seeking deeper intensity, chemistry, fixation, or transformation.",so:"Expanding my influence, network, contribution, or social position."}},
-{slider:true,text:"29. Rate how often each internal question appears in the background of your mind.",sliders:{sp:"Will I be okay?",sx:"Does this feel alive enough?",so:"Where does everyone stand?"}},
+{slider:true,text:"24. When entering a completely unfamiliar environment, rate how much each statement fits.",sliders:[
+{key:"so",text:"I notice social dynamics, status, and how people relate to one another."},
+{key:"sp",text:"I notice escape routes, physical comfort, or potential hazards."},
+{key:"sx",text:"I notice who immediately draws me in or repels me."}
+]},
+{slider:true,text:"25. Rate how strongly each possible loss would disturb you.",sliders:[
+{key:"sx",text:"Losing the one relationship or fixation that makes life feel vivid."},
+{key:"so",text:"Losing my place within a community, network, or group."},
+{key:"sp",text:"Losing financial or physical stability."}
+]},
+{slider:true,text:"26. If you suddenly had unlimited money tomorrow, rate how likely each response is.",sliders:[
+{key:"sp",text:"I would secure my future, improve my living conditions, and eliminate practical concerns."},
+{key:"so",text:"I would build influence, contribute to something larger, or establish a meaningful role."},
+{key:"sx",text:"I would pursue experiences, relationships, or passions that feel consuming or transformative."}
+]},
+{slider:true,text:"27. Rate how strongly each quality makes someone immediately interesting to you.",sliders:[
+{key:"sx",text:"They possess unusual intensity, magnetism, or psychological charge."},
+{key:"sp",text:"They seem capable, grounded, and self-sufficient."},
+{key:"so",text:"They have influence, charisma, or social gravity."}
+]},
+{slider:true,text:"28. When life is going well, rate how naturally your energy flows toward each area.",sliders:[
+{key:"so",text:"Expanding my influence, network, contribution, or social position."},
+{key:"sx",text:"Seeking deeper intensity, chemistry, fixation, or transformation."},
+{key:"sp",text:"Improving my quality of life and long-term stability."}
+]},
+{slider:true,text:"29. Rate how often each internal question appears in the background of your mind.",sliders:[
+{key:"sp",text:"Will I be okay?"},
+{key:"sx",text:"Does this feel alive enough?"},
+{key:"so",text:"Where does everyone stand?"}
+]},
 
 {text:"30. If everything collapsed tomorrow, what would you protect first?",options:{A:{text:"Loved ones",type:{2:2,6:1}},B:{text:"Resources",type:{6:1}},C:{text:"Identity",type:{4:4}},D:{text:"Freedom",type:{7:4}},E:{text:"Status",type:{3:3}},F:{text:"Knowledge",type:{5:4}},G:{text:"Beauty",type:{4:3}},H:{text:"Power",type:{8:4}},I:{text:"Emotional bond",type:{2:3}}}},
 {text:"31. When life starts feeling too predictable, what happens inside you?",options:{A:{text:"I feel restless and start looking for new possibilities.",type:{7:5,6:1}},B:{text:"I feel safer because predictability gives me control.",type:{6:4,1:1}},C:{text:"I feel numb and disengaged.",type:{9:3,5:1}},D:{text:"I feel trapped and need an escape route.",type:{7:4,8:1}}}},
@@ -78,11 +102,31 @@ const questions=[
 {text:"34. Which sentence feels most familiar under stress?",options:{A:{text:"I need a plan before this gets worse.",type:{6:5,1:1}},B:{text:"I need something else to look forward to.",type:{7:5}},C:{text:"I need to get away from this feeling.",type:{7:4,9:1}},D:{text:"I need to know who is actually on my side.",type:{6:5}}}},
 {text:"35. Which weakness bothers you most in other people?",options:{A:{text:"They are careless about consequences.",type:{6:5,1:1}},B:{text:"They are boring, limited, or negative.",type:{7:5}},C:{text:"They are unreliable when pressure arrives.",type:{6:4,8:1}},D:{text:"They make life feel heavier than it needs to be.",type:{7:4,9:1}}}},
 
-{slider:true,text:"36. Rate how familiar each form of self-sabotage feels.",sliders:{sp:"I turn life into maintenance, preparation, and risk control.",sx:"I mistake psychological activation for significance.",so:"I become too dependent on audience, role, or social placement."}},
-{slider:true,text:"37. Rate how irrational each threat can make you.",sliders:{sp:"Threats to my comfort, money, health, or independence.",sx:"The feeling of being magnetized by something destructive.",so:"Losing status, belonging, or social orientation."}},
-{slider:true,text:"38. Rate how familiar each embarrassing compulsion feels.",sliders:{sp:"Hoarding security even when I have enough.",sx:"Wanting intensity even when it makes me unstable.",so:"Needing to know where I stand with others."}},
-{slider:true,text:"39. Rate how strongly each pattern has cost you.",sliders:{sp:"Avoiding risks because stability matters too much.",sx:"Becoming addicted to emotional charge.",so:"Performing correctly for the social environment."}},
-{slider:true,text:"40. Rate how strongly each form of blindness sounds like you.",sliders:{sp:"I ignore desire because survival comes first.",sx:"I ignore consequences because the charge feels necessary.",so:"I ignore myself because the social field feels louder."}}
+{slider:true,text:"36. Rate how familiar each form of self-sabotage feels.",sliders:[
+{key:"sx",text:"I mistake psychological activation for significance."},
+{key:"sp",text:"I turn life into maintenance, preparation, and risk control."},
+{key:"so",text:"I become too dependent on audience, role, or social placement."}
+]},
+{slider:true,text:"37. Rate how irrational each threat can make you.",sliders:[
+{key:"so",text:"Losing status, belonging, or social orientation."},
+{key:"sx",text:"The feeling of being magnetized by something destructive."},
+{key:"sp",text:"Threats to my comfort, money, health, or independence."}
+]},
+{slider:true,text:"38. Rate how familiar each embarrassing compulsion feels.",sliders:[
+{key:"sp",text:"Hoarding security even when I have enough."},
+{key:"so",text:"Needing to know where I stand with others."},
+{key:"sx",text:"Wanting intensity even when it makes me unstable."}
+]},
+{slider:true,text:"39. Rate how strongly each pattern has cost you.",sliders:[
+{key:"so",text:"Performing correctly for the social environment."},
+{key:"sp",text:"Avoiding risks because stability matters too much."},
+{key:"sx",text:"Becoming addicted to emotional charge."}
+]},
+{slider:true,text:"40. Rate how strongly each form of blindness sounds like you.",sliders:[
+{key:"sx",text:"I ignore consequences because the charge feels necessary."},
+{key:"so",text:"I ignore myself because the social field feels louder."},
+{key:"sp",text:"I ignore desire because survival comes first."}
+]}
 ];
 
 const typeDescriptions={
@@ -101,7 +145,6 @@ const instinctNames={sp:"Self-Preservation",sx:"Sexual / One-to-One",so:"Social"
 
 function renderQuiz(){
 const form=document.getElementById("quizForm");
-
 questions.forEach((q,index)=>{
 const div=document.createElement("div");
 div.className="question";
@@ -109,34 +152,26 @@ let html=`<h2>${q.text}</h2>`;
 
 if(q.written){
 html+=`<textarea name="q${index}" placeholder="Write your answer here..."></textarea>`;
-}
-
-else if(q.slider){
+}else if(q.slider){
 html+=`<p class="scale-note">0 = not true at all | 5 = extremely true</p>`;
-let sliderNumber=1;
-
-for(const [instinct,text] of Object.entries(q.sliders)){
+q.sliders.forEach((item,i)=>{
 html+=`
 <div class="slider-row">
-<div class="slider-statement"><strong>Statement ${sliderNumber}:</strong> ${text}</div>
+<div class="slider-statement"><strong>Statement ${i+1}:</strong> ${item.text}</div>
 <div class="slider-scale">
 <span>0</span>
-<span class="slider-value" id="q${index}_${instinct}_value">0</span>
+<span class="slider-value" id="q${index}_${item.key}_value">0</span>
 <span>5</span>
 </div>
-<input type="range" name="q${index}_${instinct}" min="0" max="5" value="0" step="1"
-oninput="document.getElementById('q${index}_${instinct}_value').textContent=this.value">
+<input type="range" name="q${index}_${item.key}" min="0" max="5" value="0" step="1"
+oninput="document.getElementById('q${index}_${item.key}_value').textContent=this.value">
 </div>`;
-sliderNumber++;
-}
-}
-
-else{
+});
+}else{
 for(const [letter,option] of Object.entries(q.options)){
 html+=`<label><input type="radio" name="q${index}" value="${letter}"><strong>${letter}.</strong> ${option.text}</label>`;
 }
 }
-
 div.innerHTML=html;
 form.appendChild(div);
 });
@@ -156,16 +191,15 @@ questions.forEach((q,index)=>{
 if(q.written)return;
 
 if(q.slider){
-for(const instinct of Object.keys(q.sliders)){
-const slider=document.querySelector(`input[name="q${index}_${instinct}"]`);
-instinctScores[instinct]+=Number(slider.value);
-}
+q.sliders.forEach(item=>{
+const slider=document.querySelector(`input[name="q${index}_${item.key}"]`);
+instinctScores[item.key]+=Number(slider.value);
+});
 return;
 }
 
 const selected=document.querySelector(`input[name="q${index}"]:checked`);
 if(!selected){unanswered++;return;}
-
 const option=q.options[selected.value];
 addScores(typeScores,option.type);
 });
@@ -183,14 +217,11 @@ let sortedTypes=Object.entries(typeScores).sort((a,b)=>b[1]-a[1]);
 const sortedInstincts=Object.entries(instinctScores).sort((a,b)=>b[1]-a[1]);
 
 let coreType=sortedTypes[0][0];
-
 const topScore=sortedTypes[0][1];
 const secondScore=sortedTypes[1][1];
 const thirdScore=sortedTypes[2][1];
 
-const balancedScores=
-topScore-secondScore<=3 &&
-topScore-thirdScore<=6;
+const balancedScores=topScore-secondScore<=3 && topScore-thirdScore<=6;
 
 if(balancedScores){
 coreType="9";
@@ -200,22 +231,9 @@ sortedTypes=Object.entries(typeScores).sort((a,b)=>b[1]-a[1]);
 
 const secondType=sortedTypes[1][0];
 
-const wingMap={
-1:["9","2"],
-2:["1","3"],
-3:["2","4"],
-4:["3","5"],
-5:["4","6"],
-6:["5","7"],
-7:["6","8"],
-8:["7","9"],
-9:["8","1"]
-};
-
+const wingMap={1:["9","2"],2:["1","3"],3:["2","4"],4:["3","5"],5:["4","6"],6:["5","7"],7:["6","8"],8:["7","9"],9:["8","1"]};
 const possibleWings=wingMap[coreType];
-const wing=typeScores[possibleWings[0]]>=typeScores[possibleWings[1]]
-?possibleWings[0]
-:possibleWings[1];
+const wing=typeScores[possibleWings[0]]>=typeScores[possibleWings[1]]?possibleWings[0]:possibleWings[1];
 
 const dominantInstinct=sortedInstincts[0][0];
 const secondaryInstinct=sortedInstincts[1][0];
@@ -225,9 +243,7 @@ const typeTotal=Object.values(typeScores).reduce((a,b)=>a+b,0);
 const instinctTotal=Object.values(instinctScores).reduce((a,b)=>a+b,0);
 
 const coreConfidence=Math.round((typeScores[coreType]/typeTotal)*100);
-const instinctConfidence=instinctTotal>0
-?Math.round((instinctScores[dominantInstinct]/instinctTotal)*100)
-:0;
+const instinctConfidence=instinctTotal>0?Math.round((instinctScores[dominantInstinct]/instinctTotal)*100):0;
 
 const fullCoreType=`${coreType}w${wing}`;
 const fullResult=`${dominantInstinct}/${secondaryInstinct} ${fullCoreType}`;
@@ -242,7 +258,7 @@ resultsDiv.innerHTML=`
 <p><strong>Second strongest type:</strong> Type ${secondType}</p>
 <p><strong>Wing:</strong> ${wing}</p>
 
-${balancedScores ? `<p><strong>Note:</strong> Your scores were highly balanced, which suggests Type 9 structure.</p>` : ""}
+${balancedScores?`<p><strong>Note:</strong> Your scores were highly balanced, which suggests Type 9 structure.</p>`:""}
 
 <h3>Instinct Stack: ${dominantInstinct}/${secondaryInstinct}</h3>
 <p>
@@ -261,7 +277,7 @@ ${balancedScores ? `<p><strong>Note:</strong> Your scores were highly balanced, 
 
 <h3>Written Reflection</h3>
 <p><strong>Unforgivable betrayal:</strong></p>
-<p>${writtenAnswer ? writtenAnswer : "No written answer provided."}</p>
+<p>${writtenAnswer?writtenAnswer:"No written answer provided."}</p>
 
 <h3>All Core Type Scores</h3>
 <pre>${JSON.stringify(typeScores,null,2)}</pre>
