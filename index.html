@@ -1,10 +1,9 @@
-<!DOCTYPE html>
+html = r'''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Core Type and Instincts Test</title>
-
 <style>
 body{margin:0;font-family:Georgia,serif;background:#0b0b0f;color:#f4f4f5;line-height:1.6}
 .container{max-width:850px;margin:auto;padding:30px 20px}
@@ -23,409 +22,96 @@ pre{background:#0f0f14;padding:15px;border-radius:10px;overflow-x:auto}
 .warning{color:#fca5a5}
 </style>
 </head>
-
 <body>
 <div class="container">
 <h1>Core Type and Instincts Test</h1>
 <p class="intro">Choose the answer that feels most psychologically accurate, not the one that sounds best.</p>
-
 <form id="quizForm"></form>
-
 <button type="button" onclick="calculateResults()">Get My Results</button>
-
 <div id="results"></div>
 </div>
 
 <script>
 const questions=[
-{
-text:"1. What feels most intolerable?",
-options:{
-A:{text:"Being morally corrupt",type:{1:4,6:1}},
-B:{text:"Being worthless",type:{3:4,2:1}},
-C:{text:"Being powerless",type:{8:4,6:1}},
-D:{text:"Being unloved",type:{2:4,4:1}},
-E:{text:"Being trapped",type:{7:4,8:1}},
-F:{text:"Being emotionally exposed",type:{5:4,4:1}},
-G:{text:"Being deprived",type:{7:3,5:1}},
-H:{text:"Being ordinary",type:{4:4,3:1}},
-I:{text:"Being incompetent",type:{5:4,3:1}}
-}
-},
-{
-text:"2. When someone disappoints you repeatedly, what do you secretly want most?",
-options:{
-A:{text:"Reform them",type:{1:4}},
-B:{text:"Detach from them",type:{5:4,9:1}},
-C:{text:"Punish them",type:{8:4,1:1}},
-D:{text:"Prove superiority",type:{3:3,8:2}},
-E:{text:"Emotionally overwhelm them",type:{4:3,2:1},instinct:{sx:1}},
-F:{text:"Make them regret losing you",type:{2:3,3:2},instinct:{sx:1}},
-G:{text:"Avoid needing them",type:{5:4,8:1},instinct:{sp:1}},
-H:{text:"Preserve peace",type:{9:5}},
-I:{text:"Gain leverage",type:{8:4,5:1}}
-}
-},
-{
-text:"3. Which statement feels closest to your psychology?",
-options:{
-A:{text:"I must remain in control.",type:{8:4,1:1}},
-B:{text:"I must remain good.",type:{1:4}},
-C:{text:"I must remain special.",type:{4:4,3:1}},
-D:{text:"I must remain self-sufficient.",type:{5:4,8:1},instinct:{sp:1}},
-E:{text:"I must remain desirable.",type:{2:3,3:2},instinct:{sx:1}},
-F:{text:"I must remain secure.",type:{6:5},instinct:{sp:1}},
-G:{text:"I must remain successful.",type:{3:4},instinct:{so:1}},
-H:{text:"I must remain free.",type:{7:4}},
-I:{text:"I must remain strong.",type:{8:4}}
-}
-},
-{
-text:"4. What hurts more?",
-options:{
-A:{text:"Humiliation",type:{3:4}},
-B:{text:"Abandonment",type:{2:3,6:2},instinct:{sx:1}},
-C:{text:"Helplessness",type:{6:4,8:1}},
-D:{text:"Irrelevance",type:{4:3,3:2},instinct:{so:1}},
-E:{text:"Betrayal",type:{6:4,8:2}},
-F:{text:"Restriction",type:{7:4}},
-G:{text:"Being misunderstood",type:{4:4,5:1}},
-H:{text:"Failure",type:{3:4}},
-I:{text:"Being controlled",type:{8:4}}
-}
-},
-{
-text:"5. Do you fear becoming:",
-options:{
-A:{text:"Weak",type:{8:4}},
-B:{text:"Ordinary",type:{4:4}},
-C:{text:"Immoral",type:{1:4}},
-D:{text:"Dependent",type:{5:4,8:1},instinct:{sp:1}},
-E:{text:"Emotionally chaotic",type:{1:3,5:1}},
-F:{text:"Replaceable",type:{2:3,3:1},instinct:{sx:1}},
-G:{text:"Trapped",type:{7:4}},
-H:{text:"Vulnerable",type:{8:3,5:2}},
-I:{text:"Insignificant",type:{3:4},instinct:{so:1}}
-}
-},
-{
-text:"6. Which desire feels most ancient in you?",
-options:{
-A:{text:"Transcendence",type:{4:3,1:1}},
-B:{text:"Domination",type:{8:4}},
-C:{text:"Peace",type:{9:5}},
-D:{text:"Mastery",type:{5:4,3:1}},
-E:{text:"Love",type:{2:4}},
-F:{text:"Freedom",type:{7:4}},
-G:{text:"Purity",type:{1:4}},
-H:{text:"Recognition",type:{3:4},instinct:{so:1}},
-I:{text:"Fusion",type:{4:3,2:1},instinct:{sx:2}}
-}
-},
-{
-text:"7. Which statement sounds most true?",
-options:{
-A:{text:"I improve reality.",type:{1:4}},
-B:{text:"I survive reality.",type:{6:4,5:1},instinct:{sp:1}},
-C:{text:"I dominate reality.",type:{8:4}},
-D:{text:"I escape reality.",type:{7:4}},
-E:{text:"I beautify reality.",type:{4:4}},
-F:{text:"I understand reality.",type:{5:4}},
-G:{text:"I endure reality.",type:{9:5,6:2}},
-H:{text:"I perform reality.",type:{3:4}},
-I:{text:"I intensify reality.",type:{4:3,8:1},instinct:{sx:1}}
-}
-},
-{
-text:"8. When someone withdraws affection, what happens internally first?",
-options:{
-A:{text:"Panic",type:{6:4,2:1}},
-B:{text:"Rage",type:{8:4}},
-C:{text:"Numbness",type:{5:3,9:2}},
-D:{text:"Obsession",type:{4:2,6:2},instinct:{sx:2}},
-E:{text:"Shame",type:{4:3,3:1}},
-F:{text:"Strategic analysis",type:{5:4}},
-G:{text:"Self-blame",type:{2:3,1:1}},
-H:{text:"Contempt",type:{8:3,5:1}},
-I:{text:"Emotional pursuit",type:{2:4},instinct:{sx:1}}
-}
-},
-{
-text:"9. Which dynamic secretly appeals to you most?",
-options:{
-A:{text:"Devotion",type:{2:4}},
-B:{text:"Intensity",type:{4:2,8:1},instinct:{sx:3}},
-C:{text:"Worship",type:{3:3,2:1},instinct:{sx:1}},
-D:{text:"Equality",type:{9:5}},
-E:{text:"Mentorship",type:{5:3,1:1}},
-F:{text:"Emotional possession",type:{4:3,2:1},instinct:{sx:3}},
-G:{text:"Intellectual union",type:{5:4},instinct:{sx:1}},
-H:{text:"Strategic alliance",type:{8:3,3:1},instinct:{so:1}},
-I:{text:"Independence together",type:{5:3,9:2}}
-}
-},
+{text:"1. What feels most intolerable?",options:{
+A:{text:"Being morally corrupt",type:{1:4,6:1}},B:{text:"Being worthless",type:{3:4,2:1}},C:{text:"Being powerless",type:{8:4,6:1}},D:{text:"Being unloved",type:{2:4,4:1}},E:{text:"Being trapped",type:{7:4,8:1}},F:{text:"Being emotionally exposed",type:{5:4,4:1}},G:{text:"Being deprived",type:{7:3,5:1}},H:{text:"Being ordinary",type:{4:4,3:1}},I:{text:"Being incompetent",type:{5:4,3:1}}}},
+{text:"2. When someone disappoints you repeatedly, what do you secretly want most?",options:{
+A:{text:"Reform them",type:{1:4}},B:{text:"Detach from them",type:{5:4,9:1}},C:{text:"Punish them",type:{8:4,1:1}},D:{text:"Prove superiority",type:{3:3,8:2}},E:{text:"Emotionally overwhelm them",type:{4:3,2:1},instinct:{sx:1}},F:{text:"Make them regret losing you",type:{2:3,3:2},instinct:{sx:1}},G:{text:"Avoid needing them",type:{5:4,8:1},instinct:{sp:1}},H:{text:"Preserve peace",type:{9:5}},I:{text:"Gain leverage",type:{8:4,5:1}}}},
+{text:"3. Which statement feels closest to your psychology?",options:{
+A:{text:"I must remain in control.",type:{8:4,1:1}},B:{text:"I must remain good.",type:{1:4}},C:{text:"I must remain special.",type:{4:4,3:1}},D:{text:"I must remain self-sufficient.",type:{5:4,8:1},instinct:{sp:1}},E:{text:"I must remain desirable.",type:{2:3,3:2},instinct:{sx:1}},F:{text:"I must remain secure.",type:{6:5},instinct:{sp:1}},G:{text:"I must remain successful.",type:{3:4},instinct:{so:1}},H:{text:"I must remain free.",type:{7:4}},I:{text:"I must remain strong.",type:{8:4}}}},
+{text:"4. What hurts more?",options:{
+A:{text:"Humiliation",type:{3:4}},B:{text:"Abandonment",type:{2:3,6:2},instinct:{sx:1}},C:{text:"Helplessness",type:{6:4,8:1}},D:{text:"Irrelevance",type:{4:3,3:2},instinct:{so:1}},E:{text:"Betrayal",type:{6:4,8:2}},F:{text:"Restriction",type:{7:4}},G:{text:"Being misunderstood",type:{4:4,5:1}},H:{text:"Failure",type:{3:4}},I:{text:"Being controlled",type:{8:4}}}},
+{text:"5. Do you fear becoming:",options:{
+A:{text:"Weak",type:{8:4}},B:{text:"Ordinary",type:{4:4}},C:{text:"Immoral",type:{1:4}},D:{text:"Dependent",type:{5:4,8:1},instinct:{sp:1}},E:{text:"Emotionally chaotic",type:{1:3,5:1}},F:{text:"Replaceable",type:{2:3,3:1},instinct:{sx:1}},G:{text:"Trapped",type:{7:4}},H:{text:"Vulnerable",type:{8:3,5:2}},I:{text:"Insignificant",type:{3:4},instinct:{so:1}}}},
+{text:"6. Which desire feels most ancient in you?",options:{
+A:{text:"Transcendence",type:{4:3,1:1}},B:{text:"Domination",type:{8:4}},C:{text:"Peace",type:{9:5}},D:{text:"Mastery",type:{5:4,3:1}},E:{text:"Love",type:{2:4}},F:{text:"Freedom",type:{7:4}},G:{text:"Purity",type:{1:4}},H:{text:"Recognition",type:{3:4},instinct:{so:1}},I:{text:"Fusion",type:{4:3,2:1},instinct:{sx:2}}}},
+{text:"7. Which statement sounds most true?",options:{
+A:{text:"I improve reality.",type:{1:4}},B:{text:"I survive reality.",type:{6:4,5:1},instinct:{sp:1}},C:{text:"I dominate reality.",type:{8:4}},D:{text:"I escape reality.",type:{7:4}},E:{text:"I beautify reality.",type:{4:4}},F:{text:"I understand reality.",type:{5:4}},G:{text:"I endure reality.",type:{9:5,6:2}},H:{text:"I perform reality.",type:{3:4}},I:{text:"I intensify reality.",type:{4:3,8:1},instinct:{sx:1}}}},
+{text:"8. When someone withdraws affection, what happens internally first?",options:{
+A:{text:"Panic",type:{6:4,2:1}},B:{text:"Rage",type:{8:4}},C:{text:"Numbness",type:{5:3,9:2}},D:{text:"Obsession",type:{4:2,6:2},instinct:{sx:2}},E:{text:"Shame",type:{4:3,3:1}},F:{text:"Strategic analysis",type:{5:4}},G:{text:"Self-blame",type:{2:3,1:1}},H:{text:"Contempt",type:{8:3,5:1}},I:{text:"Emotional pursuit",type:{2:4},instinct:{sx:1}}}},
+{text:"9. Which dynamic secretly appeals to you most?",options:{
+A:{text:"Devotion",type:{2:4}},B:{text:"Intensity",type:{4:2,8:1},instinct:{sx:3}},C:{text:"Worship",type:{3:3,2:1},instinct:{sx:1}},D:{text:"Equality",type:{9:5}},E:{text:"Mentorship",type:{5:3,1:1}},F:{text:"Emotional possession",type:{4:3,2:1},instinct:{sx:3}},G:{text:"Intellectual union",type:{5:4},instinct:{sx:1}},H:{text:"Strategic alliance",type:{8:3,3:1},instinct:{so:1}},I:{text:"Independence together",type:{5:3,9:2}}}},
 {text:"10. What kind of betrayal feels unforgivable?",written:true},
-{
-text:"11. Do you fear abandonment more than engulfment?",
-options:{
-A:{text:"Abandonment more",type:{2:3,6:3},instinct:{sx:1}},
-B:{text:"Engulfment more",type:{5:3,8:2},instinct:{sp:1}},
-C:{text:"Both equally",type:{4:2,6:3}},
-D:{text:"Neither strongly",type:{9:5}}
-}
-},
-{
-text:"12. Which relationship style feels most natural?",
-options:{
-A:{text:"Emotions are calm and safe.",type:{9:5,6:2}},
-B:{text:"Emotions are intense and transformative.",type:{4:4},instinct:{sx:2}},
-C:{text:"Emotions are controlled and respectful.",type:{1:3,5:1}},
-D:{text:"Emotions are secondary to goals.",type:{3:3,5:2}}
-}
-},
-{
-text:"13. Which do you secretly want most?",
-options:{
-A:{text:"To be irreplaceable",type:{2:4}},
-B:{text:"To be untouchable",type:{5:3,8:2}},
-C:{text:"To be adored",type:{2:3,3:1},instinct:{sx:1}},
-D:{text:"To be feared",type:{8:4}},
-E:{text:"To be admired",type:{3:4},instinct:{so:1}},
-F:{text:"To be desired",type:{2:2,3:1},instinct:{sx:3}},
-G:{text:"To be respected",type:{1:2,8:2,3:1}},
-H:{text:"To be remembered",type:{4:4,3:1}},
-I:{text:"To be understood",type:{4:3,5:2}}
-}
-},
-{
-text:"14. How do you react when someone sees through you accurately?",
-options:{
-A:{text:"I feel exposed and withdraw.",type:{5:4}},
-B:{text:"I feel seen and emotionally activated.",type:{4:4},instinct:{sx:1}},
-C:{text:"I become defensive or controlling.",type:{8:4}},
-D:{text:"I analyze whether they are correct.",type:{5:4}},
-E:{text:"I feel ashamed.",type:{3:2,4:2}},
-F:{text:"I try to restore harmony.",type:{9:5}}
-}
-},
-{
-text:"15. What would emotionally destroy your self-image?",
-options:{
-A:{text:"Being corrupt or hypocritical",type:{1:4}},
-B:{text:"Being unwanted",type:{2:4}},
-C:{text:"Being unsuccessful",type:{3:4}},
-D:{text:"Being ordinary",type:{4:4}},
-E:{text:"Being incompetent",type:{5:4}},
-F:{text:"Being unsafe or betrayed",type:{6:5}},
-G:{text:"Being trapped",type:{7:4}},
-H:{text:"Being weak",type:{8:4}},
-I:{text:"Being disruptive or unwanted",type:{9:5}}
-}
-},
-{
-text:"16. What are you trying to prove?",
-options:{
-A:{text:"That I am right.",type:{1:4}},
-B:{text:"That I am lovable.",type:{2:4}},
-C:{text:"That I am impressive.",type:{3:4}},
-D:{text:"That I am unlike others.",type:{4:4}},
-E:{text:"That I am competent.",type:{5:4}},
-F:{text:"That I can survive.",type:{6:5}},
-G:{text:"That I cannot be trapped.",type:{7:4}},
-H:{text:"That I cannot be controlled.",type:{8:4}},
-I:{text:"That I can remain undisturbed.",type:{9:5}}
-}
-},
-{
-text:"17. Which causes the most shame?",
-options:{
-A:{text:"Emotional neediness",type:{5:3,8:1}},
-B:{text:"Incompetence",type:{5:4}},
-C:{text:"Unattractiveness",type:{3:3,2:1},instinct:{sx:1}},
-D:{text:"Weakness",type:{8:4}},
-E:{text:"Failure",type:{3:4}},
-F:{text:"Selfishness",type:{1:4}},
-G:{text:"Dependency",type:{5:4},instinct:{sp:1}},
-H:{text:"Mediocrity",type:{4:4}},
-I:{text:"Exposure",type:{4:2,5:2}}
-}
-},
-{
-text:"18. What separates you from ordinary people?",
-options:{
-A:{text:"My discipline",type:{1:4}},
-B:{text:"My emotional depth",type:{4:4}},
-C:{text:"My ambition",type:{3:4}},
-D:{text:"My independence",type:{5:4}},
-E:{text:"My strength",type:{8:4}},
-F:{text:"My endurance",type:{9:4,6:2}},
-G:{text:"My adaptability",type:{7:4}},
-H:{text:"My loyalty",type:{6:5}},
-I:{text:"My devotion",type:{2:4}}
-}
-},
-{
-text:"19. Which would you rather be?",
-options:{
-A:{text:"Exceptional and alone",type:{4:3,5:2}},
-B:{text:"Loved and ordinary",type:{2:3,9:3}}
-}
-},
-{
-text:"20. When stressed, what becomes obsessive?",
-options:{
-A:{text:"Control",type:{1:2,8:3}},
-B:{text:"Image",type:{3:4}},
-C:{text:"Certainty",type:{6:5}},
-D:{text:"Escape",type:{7:5}},
-E:{text:"Stimulation",type:{7:5}},
-F:{text:"Isolation",type:{5:4}},
-G:{text:"Achievement",type:{3:4}},
-H:{text:"Emotional reassurance",type:{2:4,6:1}},
-I:{text:"Intensity",type:{4:3},instinct:{sx:2}}
-}
-},
-{
-text:"21. Which defense mechanism sounds most like you?",
-options:{
-A:{text:"Repression",type:{1:4}},
-B:{text:"Rationalization",type:{3:3,1:1}},
-C:{text:"Intellectualization",type:{5:4}},
-D:{text:"Denial",type:{9:5}},
-E:{text:"Projection",type:{6:5}},
-F:{text:"Compartmentalization",type:{5:3,3:1}},
-G:{text:"Reaction formation",type:{1:4}},
-H:{text:"Dissociation",type:{9:4,5:1}},
-I:{text:"Idealization / devaluation",type:{4:4},instinct:{sx:1}}
-}
-},
-{
-text:"22. Do you believe vulnerability creates intimacy or danger?",
-options:{
-A:{text:"Intimacy",type:{2:3,4:1},instinct:{sx:1}},
-B:{text:"Danger",type:{5:3,8:2,6:1},instinct:{sp:1}},
-C:{text:"Both",type:{4:2,6:3}},
-D:{text:"Neither, it depends on utility.",type:{3:2,5:3}}
-}
-},
-{
-text:"23. What emotion do you avoid expressing most?",
-options:{
-A:{text:"Anger",type:{9:5,1:1}},
-B:{text:"Need",type:{5:4}},
-C:{text:"Fear",type:{8:4}},
-D:{text:"Shame",type:{3:4}},
-E:{text:"Envy",type:{4:4}},
-F:{text:"Tenderness",type:{8:3,1:1}}
-}
-},
-{
-text:"24. When entering a completely unfamiliar environment, what does your attention notice first?",
-options:{
-A:{text:"Escape routes, physical comfort, or potential hazards.",instinct:{sp:5}},
-B:{text:"Who immediately draws you in or repels you.",instinct:{sx:5}},
-C:{text:"The social dynamics, status, and how people relate to one another.",instinct:{so:5}}
-}
-},
-{
-text:"25. Which loss would quietly disturb you the longest?",
-options:{
-A:{text:"Losing financial or physical stability.",instinct:{sp:5}},
-B:{text:"Losing the one relationship that makes life feel vivid.",instinct:{sx:5}},
-C:{text:"Losing your place within a community or group.",instinct:{so:5}}
-}
-},
-{
-text:"26. If you suddenly had unlimited money tomorrow, what would you do first?",
-options:{
-A:{text:"Secure your future, improve your living conditions, and eliminate practical concerns.",instinct:{sp:5}},
-B:{text:"Pursue experiences, relationships, or passions that feel deeply consuming or transformative.",instinct:{sx:5}},
-C:{text:"Build influence, contribute to something larger, or establish a meaningful role within a community or field.",instinct:{so:5}}
-}
-},
-{
-text:"27. What makes someone immediately interesting to you?",
-options:{
-A:{text:"They seem capable, grounded, and self-sufficient.",instinct:{sp:5}},
-B:{text:"They possess unusual intensity, magnetism, or emotional depth.",instinct:{sx:5}},
-C:{text:"They have influence, charisma, or social gravity.",instinct:{so:5}}
-}
-},
-{
-text:"28. When life is going well, where does your energy naturally flow?",
-options:{
-A:{text:"Improving your quality of life and long-term stability.",instinct:{sp:5}},
-B:{text:"Seeking deeper intensity, chemistry, or transformation.",instinct:{sx:5}},
-C:{text:"Expanding your influence, network, or contribution.",instinct:{so:5}}
-}
-},
-{
-text:"29. Which internal question appears most often in the background of your mind?",
-options:{
-A:{text:"Will I be okay?",instinct:{sp:5}},
-B:{text:"Does this feel alive?",instinct:{sx:5}},
-C:{text:"Where does everyone stand?",instinct:{so:5}}
-}
-},
-{
-text:"30. If everything collapsed tomorrow, what would you protect first?",
-options:{
-A:{text:"Loved ones",type:{2:2,6:1},instinct:{sx:3}},
-B:{text:"Resources",instinct:{sp:5}},
-C:{text:"Identity",type:{4:4}},
-D:{text:"Freedom",type:{7:4}},
-E:{text:"Status",type:{3:3},instinct:{so:3}},
-F:{text:"Knowledge",type:{5:4}},
-G:{text:"Beauty",type:{4:3}},
-H:{text:"Power",type:{8:4}},
-I:{text:"Emotional bond",type:{2:3},instinct:{sx:4}}
-}
-},
-{
-text:"31. When life starts feeling too predictable, what happens inside you?",
-options:{
-A:{text:"I feel restless and start looking for new possibilities.",type:{7:5,6:1}},
-B:{text:"I feel safer because predictability gives me control.",type:{6:4,1:1}},
-C:{text:"I feel numb and disengaged.",type:{9:3,5:1}},
-D:{text:"I feel trapped and need an escape route.",type:{7:4,8:1}}
-}
-},
-{
-text:"32. What kind of future worries you most?",
-options:{
-A:{text:"A future where I am trapped in obligation with no freedom.",type:{7:5}},
-B:{text:"A future where I am unprotected, unsupported, or blindsided.",type:{6:5}},
-C:{text:"A future where I fail publicly.",type:{3:4}},
-D:{text:"A future where nothing meaningful ever happens.",type:{4:3,7:2}}
-}
-},
-{
-text:"33. When making a major decision, what do you secretly scan for first?",
-options:{
-A:{text:"What could go wrong and who or what can be trusted.",type:{6:5}},
-B:{text:"Which option keeps the most doors open.",type:{7:5}},
-C:{text:"Which option gives me the most control.",type:{8:4}},
-D:{text:"Which option preserves peace and avoids disruption.",type:{9:4}}
-}
-},
-{
-text:"34. Which sentence feels most familiar under stress?",
-options:{
-A:{text:"I need a plan before this gets worse.",type:{6:5,1:1}},
-B:{text:"I need something else to look forward to.",type:{7:5}},
-C:{text:"I need to get away from this feeling.",type:{7:4,9:1}},
-D:{text:"I need to know who is actually on my side.",type:{6:5}}
-}
-},
-{
-text:"35. Which weakness bothers you most in other people?",
-options:{
-A:{text:"They are careless about consequences.",type:{6:5,1:1}},
-B:{text:"They are boring, limited, or negative.",type:{7:5}},
-C:{text:"They are unreliable when pressure arrives.",type:{6:4,8:1}},
-D:{text:"They make life feel heavier than it needs to be.",type:{7:4,9:1}}
-}
-}
+{text:"11. Do you fear abandonment more than engulfment?",options:{
+A:{text:"Abandonment more",type:{2:3,6:3},instinct:{sx:1}},B:{text:"Engulfment more",type:{5:3,8:2},instinct:{sp:1}},C:{text:"Both equally",type:{4:2,6:3}},D:{text:"Neither strongly",type:{9:5}}}},
+{text:"12. Which relationship style feels most natural?",options:{
+A:{text:"Emotions are calm and safe.",type:{9:5,6:2}},B:{text:"Emotions are intense and transformative.",type:{4:4},instinct:{sx:2}},C:{text:"Emotions are controlled and respectful.",type:{1:3,5:1}},D:{text:"Emotions are secondary to goals.",type:{3:3,5:2}}}},
+{text:"13. Which do you secretly want most?",options:{
+A:{text:"To be irreplaceable",type:{2:4}},B:{text:"To be untouchable",type:{5:3,8:2}},C:{text:"To be adored",type:{2:3,3:1},instinct:{sx:1}},D:{text:"To be feared",type:{8:4}},E:{text:"To be admired",type:{3:4},instinct:{so:1}},F:{text:"To be desired",type:{2:2,3:1},instinct:{sx:3}},G:{text:"To be respected",type:{1:2,8:2,3:1}},H:{text:"To be remembered",type:{4:4,3:1}},I:{text:"To be understood",type:{4:3,5:2}}}},
+{text:"14. How do you react when someone sees through you accurately?",options:{
+A:{text:"I feel exposed and withdraw.",type:{5:4}},B:{text:"I feel seen and emotionally activated.",type:{4:4},instinct:{sx:1}},C:{text:"I become defensive or controlling.",type:{8:4}},D:{text:"I analyze whether they are correct.",type:{5:4}},E:{text:"I feel ashamed.",type:{3:2,4:2}},F:{text:"I try to restore harmony.",type:{9:5}}}},
+{text:"15. What would emotionally destroy your self-image?",options:{
+A:{text:"Being corrupt or hypocritical",type:{1:4}},B:{text:"Being unwanted",type:{2:4}},C:{text:"Being unsuccessful",type:{3:4}},D:{text:"Being ordinary",type:{4:4}},E:{text:"Being incompetent",type:{5:4}},F:{text:"Being unsafe or betrayed",type:{6:5}},G:{text:"Being trapped",type:{7:4}},H:{text:"Being weak",type:{8:4}},I:{text:"Being disruptive or unwanted",type:{9:5}}}},
+{text:"16. What are you trying to prove?",options:{
+A:{text:"That I am right.",type:{1:4}},B:{text:"That I am lovable.",type:{2:4}},C:{text:"That I am impressive.",type:{3:4}},D:{text:"That I am unlike others.",type:{4:4}},E:{text:"That I am competent.",type:{5:4}},F:{text:"That I can survive.",type:{6:5}},G:{text:"That I cannot be trapped.",type:{7:4}},H:{text:"That I cannot be controlled.",type:{8:4}},I:{text:"That I can remain undisturbed.",type:{9:5}}}},
+{text:"17. Which causes the most shame?",options:{
+A:{text:"Emotional neediness",type:{5:3,8:1}},B:{text:"Incompetence",type:{5:4}},C:{text:"Unattractiveness",type:{3:3,2:1},instinct:{sx:1}},D:{text:"Weakness",type:{8:4}},E:{text:"Failure",type:{3:4}},F:{text:"Selfishness",type:{1:4}},G:{text:"Dependency",type:{5:4},instinct:{sp:1}},H:{text:"Mediocrity",type:{4:4}},I:{text:"Exposure",type:{4:2,5:2}}}},
+{text:"18. What separates you from ordinary people?",options:{
+A:{text:"My discipline",type:{1:4}},B:{text:"My emotional depth",type:{4:4}},C:{text:"My ambition",type:{3:4}},D:{text:"My independence",type:{5:4}},E:{text:"My strength",type:{8:4}},F:{text:"My endurance",type:{9:4,6:2}},G:{text:"My adaptability",type:{7:4}},H:{text:"My loyalty",type:{6:5}},I:{text:"My devotion",type:{2:4}}}},
+{text:"19. Which would you rather be?",options:{
+A:{text:"Exceptional and alone",type:{4:3,5:2}},B:{text:"Loved and ordinary",type:{2:3,9:3}}}},
+{text:"20. When stressed, what becomes obsessive?",options:{
+A:{text:"Control",type:{1:2,8:3}},B:{text:"Image",type:{3:4}},C:{text:"Certainty",type:{6:5}},D:{text:"Escape",type:{7:5}},E:{text:"Stimulation",type:{7:5}},F:{text:"Isolation",type:{5:4}},G:{text:"Achievement",type:{3:4}},H:{text:"Emotional reassurance",type:{2:4,6:1}},I:{text:"Intensity",type:{4:3},instinct:{sx:2}}}},
+{text:"21. Which defense mechanism sounds most like you?",options:{
+A:{text:"Repression",type:{1:4}},B:{text:"Rationalization",type:{3:3,1:1}},C:{text:"Intellectualization",type:{5:4}},D:{text:"Denial",type:{9:5}},E:{text:"Projection",type:{6:5}},F:{text:"Compartmentalization",type:{5:3,3:1}},G:{text:"Reaction formation",type:{1:4}},H:{text:"Dissociation",type:{9:4,5:1}},I:{text:"Idealization / devaluation",type:{4:4},instinct:{sx:1}}}},
+{text:"22. Do you believe vulnerability creates intimacy or danger?",options:{
+A:{text:"Intimacy",type:{2:3,4:1},instinct:{sx:1}},B:{text:"Danger",type:{5:3,8:2,6:1},instinct:{sp:1}},C:{text:"Both",type:{4:2,6:3}},D:{text:"Neither, it depends on utility.",type:{3:2,5:3}}}},
+{text:"23. What emotion do you avoid expressing most?",options:{
+A:{text:"Anger",type:{9:5,1:1}},B:{text:"Need",type:{5:4}},C:{text:"Fear",type:{8:4}},D:{text:"Shame",type:{3:4}},E:{text:"Envy",type:{4:4}},F:{text:"Tenderness",type:{8:3,1:1}}}},
+{text:"24. When entering a completely unfamiliar environment, what does your attention notice first?",options:{
+A:{text:"Escape routes, physical comfort, or potential hazards.",instinct:{sp:5}},B:{text:"Who immediately draws you in or repels you.",instinct:{sx:5}},C:{text:"The social dynamics, status, and how people relate to one another.",instinct:{so:5}}}},
+{text:"25. Which loss would quietly disturb you the longest?",options:{
+A:{text:"Losing financial or physical stability.",instinct:{sp:5}},B:{text:"Losing the one relationship that makes life feel vivid.",instinct:{sx:5}},C:{text:"Losing your place within a community or group.",instinct:{so:5}}}},
+{text:"26. If you suddenly had unlimited money tomorrow, what would you do first?",options:{
+A:{text:"Secure your future, improve your living conditions, and eliminate practical concerns.",instinct:{sp:5}},B:{text:"Pursue experiences, relationships, or passions that feel deeply consuming or transformative.",instinct:{sx:5}},C:{text:"Build influence, contribute to something larger, or establish a meaningful role within a community or field.",instinct:{so:5}}}},
+{text:"27. What makes someone immediately interesting to you?",options:{
+A:{text:"They seem capable, grounded, and self-sufficient.",instinct:{sp:5}},B:{text:"They possess unusual intensity, magnetism, or emotional depth.",instinct:{sx:5}},C:{text:"They have influence, charisma, or social gravity.",instinct:{so:5}}}},
+{text:"28. When life is going well, where does your energy naturally flow?",options:{
+A:{text:"Improving your quality of life and long-term stability.",instinct:{sp:5}},B:{text:"Seeking deeper intensity, chemistry, or transformation.",instinct:{sx:5}},C:{text:"Expanding your influence, network, or contribution.",instinct:{so:5}}}},
+{text:"29. Which internal question appears most often in the background of your mind?",options:{
+A:{text:"Will I be okay?",instinct:{sp:5}},B:{text:"Does this feel alive?",instinct:{sx:5}},C:{text:"Where does everyone stand?",instinct:{so:5}}}},
+{text:"30. If everything collapsed tomorrow, what would you protect first?",options:{
+A:{text:"Loved ones",type:{2:2,6:1},instinct:{sx:3}},B:{text:"Resources",instinct:{sp:5}},C:{text:"Identity",type:{4:4}},D:{text:"Freedom",type:{7:4}},E:{text:"Status",type:{3:3},instinct:{so:3}},F:{text:"Knowledge",type:{5:4}},G:{text:"Beauty",type:{4:3}},H:{text:"Power",type:{8:4}},I:{text:"Emotional bond",type:{2:3},instinct:{sx:4}}}},
+{text:"31. When life starts feeling too predictable, what happens inside you?",options:{
+A:{text:"I feel restless and start looking for new possibilities.",type:{7:5,6:1}},B:{text:"I feel safer because predictability gives me control.",type:{6:4,1:1}},C:{text:"I feel numb and disengaged.",type:{9:3,5:1}},D:{text:"I feel trapped and need an escape route.",type:{7:4,8:1}}}},
+{text:"32. What kind of future worries you most?",options:{
+A:{text:"A future where I am trapped in obligation with no freedom.",type:{7:5}},B:{text:"A future where I am unprotected, unsupported, or blindsided.",type:{6:5}},C:{text:"A future where I fail publicly.",type:{3:4}},D:{text:"A future where nothing meaningful ever happens.",type:{4:3,7:2}}}},
+{text:"33. When making a major decision, what do you secretly scan for first?",options:{
+A:{text:"What could go wrong and who or what can be trusted.",type:{6:5}},B:{text:"Which option keeps the most doors open.",type:{7:5}},C:{text:"Which option gives me the most control.",type:{8:4}},D:{text:"Which option preserves peace and avoids disruption.",type:{9:4}}}},
+{text:"34. Which sentence feels most familiar under stress?",options:{
+A:{text:"I need a plan before this gets worse.",type:{6:5,1:1}},B:{text:"I need something else to look forward to.",type:{7:5}},C:{text:"I need to get away from this feeling.",type:{7:4,9:1}},D:{text:"I need to know who is actually on my side.",type:{6:5}}}},
+{text:"35. Which weakness bothers you most in other people?",options:{
+A:{text:"They are careless about consequences.",type:{6:5,1:1}},B:{text:"They are boring, limited, or negative.",type:{7:5}},C:{text:"They are unreliable when pressure arrives.",type:{6:4,8:1}},D:{text:"They make life feel heavier than it needs to be.",type:{7:4,9:1}}}},
+{text:"36. Which self-sabotage is most familiar?",options:{
+A:{text:"I turn life into maintenance, preparation, and risk control.",instinct:{sp:5}},B:{text:"I mistake psychological activation for significance.",instinct:{sx:5}},C:{text:"I become too dependent on audience, role, or social placement.",instinct:{so:5}}}},
+{text:"37. What makes you most irrational?",options:{
+A:{text:"Threats to my comfort, money, health, or independence.",instinct:{sp:5}},B:{text:"The feeling of being magnetized by something destructive.",instinct:{sx:5}},C:{text:"Losing status, belonging, or social orientation.",instinct:{so:5}}}},
+{text:"38. Which compulsion feels most embarrassing?",options:{
+A:{text:"Hoarding security even when I have enough.",instinct:{sp:5}},B:{text:"Wanting intensity even when it makes me unstable.",instinct:{sx:5}},C:{text:"Needing to know where I stand with others.",instinct:{so:5}}}},
+{text:"39. Which pattern has cost you the most?",options:{
+A:{text:"Avoiding risks because stability matters too much.",instinct:{sp:5}},B:{text:"Becoming addicted to emotional charge.",instinct:{sx:5}},C:{text:"Performing correctly for the social environment.",instinct:{so:5}}}},
+{text:"40. Which form of blindness sounds most like you?",options:{
+A:{text:"I ignore desire because survival comes first.",instinct:{sp:5}},B:{text:"I ignore consequences because the charge feels necessary.",instinct:{sx:5}},C:{text:"I ignore myself because the social field feels louder.",instinct:{so:5}}}}
 ];
 
 const typeDescriptions={
@@ -440,11 +126,7 @@ const typeDescriptions={
 9:"Type 9: The Peacemaker. Driven by peace, stability, harmony, and the fear of rupture or disturbance."
 };
 
-const instinctNames={
-sp:"Self-Preservation",
-sx:"Sexual / One-to-One",
-so:"Social"
-};
+const instinctNames={sp:"Self-Preservation",sx:"Sexual / One-to-One",so:"Social"};
 
 function renderQuiz(){
 const form=document.getElementById("quizForm");
@@ -456,11 +138,7 @@ if(q.written){
 html+=`<textarea name="q${index}" placeholder="Write your answer here..."></textarea>`;
 }else{
 for(const [letter,option] of Object.entries(q.options)){
-html+=`
-<label>
-<input type="radio" name="q${index}" value="${letter}">
-<strong>${letter}.</strong> ${option.text}
-</label>`;
+html+=`<label><input type="radio" name="q${index}" value="${letter}"><strong>${letter}.</strong> ${option.text}</label>`;
 }
 }
 div.innerHTML=html;
@@ -470,24 +148,18 @@ form.appendChild(div);
 
 function addScores(target,source){
 if(!source)return;
-for(const key in source){
-target[key]+=source[key];
-}
+for(const key in source){target[key]+=source[key];}
 }
 
 function calculateResults(){
 const typeScores={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
 const instinctScores={sp:0,sx:0,so:0};
-
 let unanswered=0;
 
 questions.forEach((q,index)=>{
 if(q.written)return;
 const selected=document.querySelector(`input[name="q${index}"]:checked`);
-if(!selected){
-unanswered++;
-return;
-}
+if(!selected){unanswered++;return;}
 const option=q.options[selected.value];
 addScores(typeScores,option.type);
 addScores(instinctScores,option.instinct);
@@ -510,9 +182,7 @@ const topScore=sortedTypes[0][1];
 const secondScore=sortedTypes[1][1];
 const thirdScore=sortedTypes[2][1];
 
-const balancedScores =
-topScore - secondScore <= 3 &&
-topScore - thirdScore <= 6;
+const balancedScores=topScore-secondScore<=3 && topScore-thirdScore<=6;
 
 if(balancedScores){
 coreType="9";
@@ -522,22 +192,9 @@ sortedTypes=Object.entries(typeScores).sort((a,b)=>b[1]-a[1]);
 
 const secondType=sortedTypes[1][0];
 
-const wingMap={
-1:["9","2"],
-2:["1","3"],
-3:["2","4"],
-4:["3","5"],
-5:["4","6"],
-6:["5","7"],
-7:["6","8"],
-8:["7","9"],
-9:["8","1"]
-};
-
+const wingMap={1:["9","2"],2:["1","3"],3:["2","4"],4:["3","5"],5:["4","6"],6:["5","7"],7:["6","8"],8:["7","9"],9:["8","1"]};
 const possibleWings=wingMap[coreType];
-const wing=typeScores[possibleWings[0]]>=typeScores[possibleWings[1]]
-? possibleWings[0]
-: possibleWings[1];
+const wing=typeScores[possibleWings[0]]>=typeScores[possibleWings[1]]?possibleWings[0]:possibleWings[1];
 
 const dominantInstinct=sortedInstincts[0][0];
 const secondaryInstinct=sortedInstincts[1][0];
@@ -551,7 +208,6 @@ const instinctConfidence=Math.round((instinctScores[dominantInstinct]/instinctTo
 
 const fullCoreType=`${coreType}w${wing}`;
 const fullResult=`${dominantInstinct}/${secondaryInstinct} ${fullCoreType}`;
-
 const writtenAnswer=document.querySelector(`textarea[name="q9"]`)?.value || "";
 
 resultsDiv.innerHTML=`
@@ -597,4 +253,9 @@ resultsDiv.scrollIntoView({behavior:"smooth"});
 renderQuiz();
 </script>
 </body>
-</html>
+</html>'''
+
+path = "/mnt/data/index.html"
+with open(path, "w", encoding="utf-8") as f:
+    f.write(html)
+path
